@@ -1,0 +1,28 @@
+version: '3'
+
+volumes:
+  postgres:
+
+services:
+  event-shuffler:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    environment: 
+      - PGUSER=iiniemi
+      - PGHOST=mydb
+      - PGPASSWORD=salasana
+      - PGDATABASE=rainbow_database
+      - POSTGRES_URI=postgres://iiniemi:salasana@mydb:5432/rainbow_database
+    depends_on:
+      - mydb
+  mydb:
+      image: postgres
+      env_file: 
+      - database.env
+      volumes:
+      - postgres:/var/lib/postgresql/data
+      ports:
+      - 5432:5432
