@@ -43,23 +43,5 @@ const Vote = instance.sequelize.define('Vote', {
   },
 }, {timestamps: false});
 
-// const EventVotes = instance.sequelize.define('EventVotes', {
-//   EventId: {
-//     type: DataTypes.INTEGER,
-//     references: {
-//       model: Event
-//     }
-//   },
-//   VoteId: {
-//     type: DataTypes.INTEGER,
-//     references: {
-//       model: Vote
-//     }
-//   },
-  
-  
-// }, {timestamps: false});
-
 exports.Event = Event;
 exports.Vote = Vote;
-// exports.EventVotes = EventVotes;
