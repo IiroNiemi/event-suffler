@@ -4,7 +4,7 @@ const VoteValidator = require('../util/VoteValidator')
 
 
 // GET: Get event by id
-exports.event_id_get = async (req, res) => {
+exports.getEventId = async (req, res) => {
   const event = await Event.findOne({
     where: { id: req.params.id },
     include: [Vote]
@@ -17,7 +17,7 @@ exports.event_id_get = async (req, res) => {
 }
 
 // GET: List all events
-exports.event_all_get = async (req, res) => {
+exports.getAllEvents = async (req, res) => {
   const event = await Event.findAll({ 
     include: [Vote] 
   })
@@ -29,14 +29,14 @@ exports.event_all_get = async (req, res) => {
 }
 
 // GET: Get event vote results for everyone
-exports.event_results_get = async (req, res) => {
+exports.getEventResults = async (req, res) => {
   const event = await Event.findByPk(req.params.id, { include: [Vote] })
   const result = await ResponseParser.EventResultResponse(event)
   res.status(200).json(result)
 }
 
 // POST: Create new event
-exports.event_create_post = async (req, res) => {
+exports.postCreateEvent = async (req, res) => {
   await Event.create({ 
     name: req.body.name, 
     EventDates: req.body.dates })
@@ -49,7 +49,7 @@ exports.event_create_post = async (req, res) => {
 }
 
 // POST: a vote to event
-exports.event_vote_post = async (req, res) => {
+exports.postEventVote = async (req, res) => { // Camel casen käyttö
   const validationResult = await VoteValidator.checkEventDate(req);
  
   if(validationResult.voteOK){
